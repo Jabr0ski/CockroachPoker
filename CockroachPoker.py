@@ -1,4 +1,5 @@
 import random
+import tkinter as tk
 
 class Card:
     def __init__(self, name, value):
@@ -38,15 +39,39 @@ def deal():
         currPlayerIndex += 1
     firstPlayerIndex = (firstPlayerIndex % len(Players)+1)
     print("\nPlayer", firstPlayerIndex, "starts!")
-    
+    return firstPlayerIndex
+
+
 #pid = player ID passed to find
 def findPlayer(pid):
     for p in Players:
         if(p.uid == pid):
-            #print(p.uid)
             return p
 
+def gameLoop():
+    currentPlayerIndex = deal()
+    currPlayer = findPlayer(currentPlayerIndex)
+    window = tk.Tk()
+    windowTitle = tk.Label("The Current Game State")
+    currPlayer = tk.Label("")
+    currOpps = tk.Label("")
+    for p in Players:
+        if(p.uid == 1):
+            currPlayer = "You currently have"
+        else:
+            currOpps += "\nPlayer" + p.uid + "has"
+
 def main():
+    #window = tk.Tk()
+    #mainTitle = tk.Label(text="Cockroach Poker")
+    #about = tk.Label(text="Cockroach Poker is a reverse set collection game that\
+#has nothing to do with\n poker – except that the game is all about bluffing, with\
+#cards that show \ncockroaches, rats and stink bugs. The goal is to force another\
+#player to\n collect 4 of any one type of critter, or to empty their hand.")
+    #entry = tk.Entry(width=50)
+    #mainTitle.pack()
+    #about.pack()
+    #window.mainloop()
     print("Cockroach Poker is a reverse set collection game that has nothing\
 to do with poker – except that the game is all about bluffing, with cards that\
 show cockroaches, rats and stink bugs. The goal is to force another player to\
@@ -70,6 +95,6 @@ collect 4 of any one type of critter, or to empty their hand.")
     
     print("\nYou are player 1 and you have", opponentCount, "opponents.")
     
-    deal()
-    
+    gameLoop()
+
 main()
